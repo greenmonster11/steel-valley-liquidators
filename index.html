@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steel Valley Liquidators, LLC | Wholesale Liquidation & Overstock Distribution</title>
+    <meta name="description" content="Steel Valley Liquidators connects overstock and return product suppliers with wholesale distributors, online sellers, and discount stores. Based in Boardman, Ohio.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #0a1628;
+            --navy-light: #0f1f38;
+            --navy-mid: #162744;
+            --steel: #2d5a8e;
+            --steel-light: #4a8fd4;
+            --steel-glow: #5ba0e8;
+            --accent: #f0a500;
+            --accent-light: #ffc547;
+            --accent-glow: rgba(240, 165, 0, 0.4);
+            --white: #ffffff;
+            --off-white: #f8fafc;
+            --gray-50: #f1f5f9;
+            --gray-100: #e2e8f0;
+            --gray-200: #cbd5e1;
+            --gray-300: #94a3b8;
+            --gray-400: #64748b;
+            --gray-500: #475569;
+            --gray-600: #334155;
+            --gray-700: #1e293b;
+            --success: #22c55e;
+            --radius: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.06);
+            --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
+            --shadow-xl: 0 24px 64px rgba(0,0,0,0.16);
+            --shadow-glow: 0 0 60px rgba(240, 165, 0, 0.15);
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-600);
+            background: var(--white);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        img { max-width: 100%; height: auto; display: block; }
+
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+        /* ===== TYPOGRAPHY ===== */
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        .section-label::before {
+            content: '';
+            width: 36px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            border-radius: 2px;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--navy);
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray-400);
+            max-width: 560px;
+            line-height: 1.75;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 36px;
+            border-radius: 60px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s var(--ease);
+            position: relative;
+        }
+        .btn svg { width: 18px; height: 18px; transition: transform 0.4s var(--ease); }
+        .btn:hover svg { transform: translateX(5px); }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: var(--navy);
+            box-shadow: 0 4px 24px var(--accent-glow);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px var(--accent-glow), var(--shadow-glow);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.08);
+            color: var(--white);
+            border: 2px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.4);
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--steel);
+            border: 2px solid var(--gray-100);
+        }
+        .btn-outline:hover {
+            border-color: var(--steel);
+            background: var(--steel);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--navy);
+            box-shadow: var(--shadow);
+        }
+        .btn-white:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeUp { from { opacity:0; transform:translateY(50px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        @keyframes scaleIn { from { opacity:0; transform:scale(0.9); } to { opacity:1; transform:scale(1); } }
+        @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-16px); } }
+        @keyframes floatSlow { 0%,100% { transform:translateY(0) rotate(0deg); } 50% { transform:translateY(-24px) rotate(2deg); } }
+        @keyframes pulse { 0%,100% { opacity:.5; transform:scale(1); } 50% { opacity:1; transform:scale(1.05); } }
+        @keyframes shimmer { 0% { background-position:-200% center; } 100% { background-position:200% center; } }
+        @keyframes marquee { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
+        @keyframes countUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -10%); }
+            30% { transform: translate(3%, -15%); }
+            50% { transform: translate(12%, 9%); }
+            70% { transform: translate(9%, 4%); }
+            90% { transform: translate(-1%, 7%); }
+        }
+
+        .anim { opacity: 0; transform: translateY(40px); transition: all 0.9s var(--ease); }
+        .anim.show { opacity: 1; transform: translateY(0); }
+        .anim-d1 { transition-delay: 0.1s; }
+        .anim-d2 { transition-delay: 0.2s; }
+        .anim-d3 { transition-delay: 0.3s; }
+        .anim-d4 { transition-delay: 0.4s; }
+        .anim-d5 { transition-delay: 0.5s; }
+        .anim-scale { opacity:0; transform:scale(0.92); transition: all 0.8s var(--ease); }
+        .anim-scale.show { opacity:1; transform:scale(1); }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s var(--ease);
+        }
+        .navbar.scrolled {
+            background: rgba(10, 22, 40, 0.92);
+            backdrop-filter: blur(24px) saturate(180%);
+            padding: 10px 0;
+            box-shadow: 0 4px 40px rgba(0,0,0,0.3);
+        }
+        .navbar .container { display: flex; align-items: center; justify-content: space-between; }
+
+        .logo { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--white); }
+        .logo-icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800; font-size: 1.1rem; color: var(--navy);
+            box-shadow: 0 4px 16px var(--accent-glow);
+        }
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700; font-size: 1.15rem; line-height: 1.2;
+        }
+        .logo-text small {
+            display: block; font-family: 'Inter', sans-serif;
+            font-size: 0.62rem; font-weight: 500;
+            letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.5;
+        }
+
+        .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+        .nav-links a {
+            color: rgba(255,255,255,0.6); text-decoration: none;
+            font-size: 0.88rem; font-weight: 500; padding: 10px 18px;
+            border-radius: 10px; transition: all 0.3s var(--ease);
+        }
+        .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+
+        .nav-cta { margin-left: 12px; }
+        .nav-cta .btn { padding: 12px 28px; font-size: 0.85rem; }
+
+        .mobile-toggle {
+            display: none; flex-direction: column; gap: 5px;
+            background: none; border: none; cursor: pointer; padding: 8px;
+        }
+        .mobile-toggle span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s var(--ease); }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative; min-height: 100vh;
+            display: flex; align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute; inset: 0; z-index: 0;
+        }
+        .hero-bg img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg,
+                rgba(10, 22, 40, 0.92) 0%,
+                rgba(15, 31, 56, 0.88) 40%,
+                rgba(45, 90, 142, 0.78) 100%
+            );
+        }
+
+        .hero-grain {
+            position: absolute; inset: -50%; z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            animation: grain 8s steps(10) infinite;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .hero-grid-pattern {
+            position: absolute; inset: 0; z-index: 1;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+        }
+
+        .hero-orb {
+            position: absolute; border-radius: 50%; z-index: 1;
+            filter: blur(80px); pointer-events: none;
+        }
+        .hero-orb-1 {
+            width: 600px; height: 600px; top: -20%; right: -10%;
+            background: radial-gradient(circle, rgba(240, 165, 0, 0.12), transparent 70%);
+            animation: floatSlow 12s ease-in-out infinite;
+        }
+        .hero-orb-2 {
+            width: 500px; height: 500px; bottom: -20%; left: -5%;
+            background: radial-gradient(circle, rgba(74, 143, 212, 0.12), transparent 70%);
+            animation: floatSlow 15s ease-in-out infinite reverse;
+        }
+
+        .hero .container {
+            position: relative; z-index: 2;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 80px; align-items: center;
+            padding-top: 120px; padding-bottom: 120px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+            font-weight: 800; color: var(--white);
+            line-height: 1.05; margin-bottom: 28px;
+            letter-spacing: -0.03em;
+        }
+        .hero-content h1 span {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hero-content p {
+            font-size: 1.2rem; color: rgba(255,255,255,0.55);
+            line-height: 1.8; margin-bottom: 44px; max-width: 500px;
+        }
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+        .hero-visual { display: flex; justify-content: center; align-items: center; perspective: 1000px; }
+
+        .hero-card-stack { position: relative; width: 100%; max-width: 440px; }
+
+        .hero-card-main {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(24px) saturate(150%);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius-lg); padding: 36px;
+            position: relative; z-index: 3;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+        }
+        .hero-card-glow {
+            position: absolute; inset: -1px;
+            background: linear-gradient(135deg, rgba(240, 165, 0, 0.2), transparent 50%, rgba(74, 143, 212, 0.2));
+            border-radius: var(--radius-lg); z-index: -1;
+            opacity: 0.6;
+        }
+
+        .card-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 28px; padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .card-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--success); animation: pulse 2.5s ease-in-out infinite; }
+        .card-header span { font-size: 0.82rem; color: rgba(255,255,255,0.4); font-weight: 500; letter-spacing: 0.02em; }
+
+        .card-stat {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .card-stat:last-child { border-bottom: none; }
+        .card-stat-label { font-size: 0.88rem; color: rgba(255,255,255,0.4); }
+        .card-stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem; font-weight: 700; color: var(--accent);
+        }
+
+        .hero-floating {
+            position: absolute; background: var(--white);
+            border-radius: var(--radius); padding: 16px 22px;
+            box-shadow: var(--shadow-xl); display: flex;
+            align-items: center; gap: 12px; z-index: 4;
+        }
+        .hero-floating.top-right { top: -24px; right: -28px; animation: float 6s ease-in-out infinite; }
+        .hero-floating.bottom-left { bottom: -24px; left: -28px; animation: float 7s ease-in-out infinite reverse; }
+
+        .float-icon {
+            width: 44px; height: 44px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+        }
+        .float-icon.blue { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+        .float-icon.orange { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+
+        .float-text { font-size: 0.82rem; font-weight: 600; color: var(--gray-600); line-height: 1.3; }
+        .float-text small { display: block; font-weight: 400; color: var(--gray-300); font-size: 0.7rem; }
+
+        /* ===== MARQUEE PARTNERS ===== */
+        .partners {
+            background: var(--navy);
+            padding: 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+        }
+        .partners-inner {
+            display: flex; align-items: center;
+            padding: 28px 0;
+        }
+        .partners-label {
+            flex-shrink: 0; padding: 0 40px 0 28px;
+            font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+            border-right: 1px solid rgba(255,255,255,0.08);
+            margin-right: 40px; white-space: nowrap;
+        }
+        .marquee-track {
+            display: flex; animation: marquee 30s linear infinite;
+            gap: 60px; align-items: center;
+        }
+        .marquee-track span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem; font-weight: 700;
+            color: rgba(255,255,255,0.15);
+            white-space: nowrap; flex-shrink: 0;
+            transition: color 0.3s;
+        }
+        .marquee-track span:hover { color: rgba(255,255,255,0.4); }
+
+        /* ===== ABOUT ===== */
+        .about { padding: 140px 0; }
+        .about .container { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+        .about-images { position: relative; }
+        .about-img-main {
+            border-radius: var(--radius-xl); overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            aspect-ratio: 4/3;
+            position: relative;
+        }
+        .about-img-main img { width: 100%; height: 100%; object-fit: cover; }
+        .about-img-main::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(10,22,40,0.3) 0%, transparent 50%);
+        }
+
+        .about-img-float {
+            position: absolute; bottom: -40px; right: -40px;
+            width: 220px; height: 180px;
+            border-radius: var(--radius-lg); overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            border: 5px solid var(--white);
+            z-index: 2;
+        }
+        .about-img-float img { width: 100%; height: 100%; object-fit: cover; }
+
+        .about-badge {
+            position: absolute; top: -20px; left: -20px; z-index: 3;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: var(--navy); border-radius: var(--radius);
+            padding: 20px 24px; box-shadow: 0 12px 40px var(--accent-glow);
+            text-align: center;
+        }
+        .about-badge-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.4rem; font-weight: 800; line-height: 1;
+        }
+        .about-badge-text { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+
+        .about-content .section-subtitle { margin-bottom: 36px; }
+
+        .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .value-item {
+            display: flex; gap: 16px; align-items: flex-start;
+            padding: 20px; border-radius: var(--radius);
+            background: var(--off-white);
+            border: 1px solid transparent;
+            transition: all 0.3s var(--ease);
+        }
+        .value-item:hover { border-color: var(--gray-100); box-shadow: var(--shadow); transform: translateY(-2px); }
+        .value-icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            background: var(--white); display: flex; align-items: center;
+            justify-content: center; flex-shrink: 0;
+            box-shadow: var(--shadow);
+        }
+        .value-icon svg { width: 22px; height: 22px; color: var(--steel); }
+        .value-text h4 { font-size: 0.95rem; font-weight: 650; color: var(--navy); margin-bottom: 4px; }
+        .value-text p { font-size: 0.8rem; color: var(--gray-400); line-height: 1.5; }
+
+        /* ===== STATS BAND ===== */
+        .stats-band {
+            background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+            padding: 80px 0;
+            position: relative; overflow: hidden;
+        }
+        .stats-band::before {
+            content: ''; position: absolute; inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(240, 165, 0, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(74, 143, 212, 0.06) 0%, transparent 50%);
+        }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 40px; position: relative; z-index: 1;
+        }
+        .stat-item { text-align: center; }
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 800; color: var(--accent);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.85rem; color: rgba(255,255,255,0.4);
+            margin-top: 8px; font-weight: 500;
+        }
+        .stat-divider {
+            width: 40px; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            margin: 12px auto 0;
+        }
+
+        /* ===== SERVICES ===== */
+        .services { padding: 140px 0; background: var(--off-white); }
+        .services-header { text-align: center; margin-bottom: 72px; }
+        .services-header .section-subtitle { margin: 0 auto; }
+
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
+        .service-card {
+            background: var(--white); border-radius: var(--radius-lg);
+            overflow: hidden; transition: all 0.5s var(--ease);
+            border: 1px solid var(--gray-100);
+            position: relative;
+        }
+        .service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); border-color: transparent; }
+
+        .service-card-img {
+            width: 100%; height: 200px; overflow: hidden; position: relative;
+        }
+        .service-card-img img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s var(--ease);
+        }
+        .service-card:hover .service-card-img img { transform: scale(1.08); }
+        .service-card-img::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(10,22,40,0.5) 0%, transparent 60%);
+        }
+
+        .service-card-body { padding: 32px; }
+        .service-card-icon {
+            width: 56px; height: 56px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 20px; margin-top: -52px;
+            position: relative; z-index: 2; box-shadow: var(--shadow);
+        }
+        .service-card-icon.blue { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+        .service-card-icon.orange { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .service-card-icon.green { background: linear-gradient(135deg, #10b981, #34d399); }
+
+        .service-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem; font-weight: 650; color: var(--navy); margin-bottom: 12px;
+        }
+        .service-card p { font-size: 0.95rem; color: var(--gray-400); line-height: 1.7; }
+
+        /* ===== HOW IT WORKS ===== */
+        .how { padding: 140px 0; position: relative; overflow: hidden; }
+        .how-header { text-align: center; margin-bottom: 80px; }
+        .how-header .section-subtitle { margin: 0 auto; }
+
+        .how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; position: relative; }
+        .how-steps::before {
+            content: ''; position: absolute; top: 60px; left: 16%; right: 16%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--steel-light), var(--accent));
+            border-radius: 3px;
+            opacity: 0.2;
+        }
+
+        .step { text-align: center; position: relative; }
+        .step-circle {
+            width: 120px; height: 120px; border-radius: 50%;
+            margin: 0 auto 32px; position: relative; z-index: 2;
+            overflow: hidden; box-shadow: var(--shadow-lg);
+            border: 4px solid var(--white);
+        }
+        .step-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .step-circle::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(10,22,40,0.6), rgba(45,90,142,0.4));
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .step-number-badge {
+            position: absolute; top: -8px; right: calc(50% - 72px);
+            width: 36px; height: 36px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: var(--navy); font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem; font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 3; box-shadow: 0 4px 16px var(--accent-glow);
+        }
+
+        .step h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem; font-weight: 650; color: var(--navy); margin-bottom: 12px;
+        }
+        .step p { font-size: 0.95rem; color: var(--gray-400); line-height: 1.7; max-width: 300px; margin: 0 auto; }
+
+        /* ===== WHY US ===== */
+        .why {
+            padding: 140px 0;
+            background: linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 100%);
+            position: relative; overflow: hidden;
+        }
+        .why::before {
+            content: ''; position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+        .why .container { position: relative; z-index: 2; }
+        .why-header { text-align: center; margin-bottom: 72px; }
+        .why-header .section-title { color: var(--white); }
+        .why-header .section-subtitle { color: rgba(255,255,255,0.4); margin: 0 auto; }
+
+        .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .why-card {
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius-lg); padding: 40px;
+            transition: all 0.5s var(--ease);
+            position: relative; overflow: hidden;
+        }
+        .why-card::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 80px; height: 80px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(240, 165, 0, 0.08), transparent);
+            transform: translate(-30%, -30%);
+        }
+        .why-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.12);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .why-card-icon {
+            width: 56px; height: 56px; border-radius: 14px;
+            background: linear-gradient(135deg, rgba(240, 165, 0, 0.15), rgba(240, 165, 0, 0.05));
+            display: flex; align-items: center; justify-content: center; margin-bottom: 24px;
+        }
+        .why-card-icon svg { width: 26px; height: 26px; color: var(--accent); }
+        .why-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 650; color: var(--white); margin-bottom: 10px; }
+        .why-card p { font-size: 0.95rem; color: rgba(255,255,255,0.4); line-height: 1.7; }
+
+        /* ===== PRODUCTS ===== */
+        .products { padding: 140px 0; }
+        .products-header { text-align: center; margin-bottom: 72px; }
+        .products-header .section-subtitle { margin: 0 auto; }
+
+        .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .product-card {
+            border-radius: var(--radius-lg); overflow: hidden;
+            position: relative; aspect-ratio: 1/1;
+            cursor: pointer; group: true;
+        }
+        .product-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s var(--ease);
+        }
+        .product-card:hover img { transform: scale(1.1); }
+        .product-card-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(10,22,40,0.85) 0%, rgba(10,22,40,0.2) 50%, transparent 100%);
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 24px; transition: all 0.4s var(--ease);
+        }
+        .product-card:hover .product-card-overlay {
+            background: linear-gradient(to top, rgba(10,22,40,0.9) 0%, rgba(10,22,40,0.4) 60%, rgba(10,22,40,0.1) 100%);
+        }
+        .product-card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem; font-weight: 650; color: var(--white); margin-bottom: 4px;
+        }
+        .product-card p { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+
+        /* ===== GALLERY STRIP ===== */
+        .gallery-strip {
+            padding: 0; overflow: hidden;
+            background: var(--navy);
+        }
+        .gallery-strip-inner {
+            display: flex; gap: 4px;
+        }
+        .gallery-strip-img {
+            flex: 0 0 25%; height: 280px; overflow: hidden;
+            position: relative;
+        }
+        .gallery-strip-img img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s var(--ease);
+            filter: brightness(0.7) saturate(0.9);
+        }
+        .gallery-strip-img:hover img {
+            transform: scale(1.05);
+            filter: brightness(0.9) saturate(1);
+        }
+
+        /* ===== CTA ===== */
+        .cta { padding: 140px 0; background: var(--off-white); }
+        .cta-box {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--steel) 100%);
+            border-radius: var(--radius-xl); padding: 100px 80px;
+            text-align: center; position: relative; overflow: hidden;
+        }
+        .cta-box::before {
+            content: ''; position: absolute; top: -40%; right: -10%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(240, 165, 0, 0.12), transparent 70%);
+            border-radius: 50%;
+        }
+        .cta-box::after {
+            content: ''; position: absolute; bottom: -30%; left: -10%;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(74, 143, 212, 0.1), transparent 70%);
+            border-radius: 50%;
+        }
+        .cta-box h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700;
+            color: var(--white); margin-bottom: 18px; position: relative;
+        }
+        .cta-box p { font-size: 1.15rem; color: rgba(255,255,255,0.5); max-width: 500px; margin: 0 auto 44px; position: relative; }
+        .cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; position: relative; }
+
+        /* ===== CONTACT ===== */
+        .contact { padding: 140px 0; }
+        .contact .container { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+
+        .contact-info h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem; font-weight: 650; color: var(--navy);
+            margin-bottom: 24px; margin-top: 40px;
+        }
+        .contact-info h3:first-of-type { margin-top: 0; }
+
+        .contact-detail {
+            display: flex; gap: 16px; align-items: flex-start; margin-bottom: 20px;
+        }
+        .contact-detail-icon {
+            width: 52px; height: 52px; border-radius: 14px;
+            background: var(--off-white); display: flex;
+            align-items: center; justify-content: center; flex-shrink: 0;
+            border: 1px solid var(--gray-100);
+        }
+        .contact-detail-icon svg { width: 22px; height: 22px; color: var(--steel); }
+        .contact-detail-text strong { display: block; font-size: 0.9rem; color: var(--navy); margin-bottom: 2px; }
+        .contact-detail-text span { font-size: 0.9rem; color: var(--gray-400); }
+
+        .contact-map {
+            margin-top: 32px; border-radius: var(--radius-lg); overflow: hidden;
+            height: 200px; position: relative;
+        }
+        .contact-map img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.7) brightness(0.95); }
+        .contact-map-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(10,22,40,0.2), transparent);
+        }
+
+        .contact-form {
+            background: var(--off-white); border-radius: var(--radius-xl);
+            padding: 48px; border: 1px solid var(--gray-100);
+        }
+        .contact-form h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem; font-weight: 650; color: var(--navy); margin-bottom: 8px;
+        }
+        .contact-form > p { font-size: 0.9rem; color: var(--gray-400); margin-bottom: 32px; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--gray-500); margin-bottom: 8px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 16px 18px;
+            border: 1.5px solid var(--gray-100); border-radius: var(--radius);
+            font-family: 'Inter', sans-serif; font-size: 0.95rem;
+            color: var(--gray-600); background: var(--white);
+            transition: all 0.3s var(--ease); outline: none;
+        }
+        .form-group input::placeholder, .form-group textarea::placeholder { color: var(--gray-300); }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--steel-light);
+            box-shadow: 0 0 0 4px rgba(74, 143, 212, 0.08);
+        }
+        .form-group textarea { min-height: 130px; resize: vertical; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-submit { width: 100%; padding: 18px; justify-content: center; font-size: 1rem; }
+
+        /* ===== FOOTER ===== */
+        .footer { background: var(--navy); padding: 80px 0 0; }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px; padding-bottom: 64px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .footer-brand p { color: rgba(255,255,255,0.3); font-size: 0.9rem; line-height: 1.7; margin-top: 18px; max-width: 320px; }
+        .footer-col h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 24px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 14px; }
+        .footer-col ul a { color: rgba(255,255,255,0.3); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        .footer-col ul a:hover { color: var(--accent); }
+
+        .footer-bottom {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 28px 0;
+        }
+        .footer-bottom p { color: rgba(255,255,255,0.2); font-size: 0.8rem; }
+
+        .footer-social { display: flex; gap: 10px; }
+        .footer-social a {
+            width: 42px; height: 42px; border-radius: 12px;
+            background: rgba(255,255,255,0.04); display: flex;
+            align-items: center; justify-content: center;
+            color: rgba(255,255,255,0.3); text-decoration: none;
+            transition: all 0.3s var(--ease); border: 1px solid rgba(255,255,255,0.06);
+        }
+        .footer-social a:hover { background: var(--accent); color: var(--navy); border-color: var(--accent); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero .container { grid-template-columns: 1fr; text-align: center; gap: 60px; }
+            .hero-content p { margin: 0 auto 40px; }
+            .hero-buttons { justify-content: center; }
+            .hero-visual { display: none; }
+            .about .container { grid-template-columns: 1fr; gap: 60px; }
+            .about-img-float { bottom: -20px; right: 20px; }
+            .about-badge { top: 20px; left: 20px; }
+            .services-grid { grid-template-columns: 1fr 1fr; }
+            .how-steps { grid-template-columns: 1fr; gap: 48px; }
+            .how-steps::before { display: none; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+            .why-grid { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact .container { grid-template-columns: 1fr; gap: 48px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .gallery-strip-img { flex: 0 0 50%; height: 220px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .nav-cta { display: none; }
+            .mobile-toggle { display: flex; }
+            .nav-links.open {
+                display: flex; flex-direction: column;
+                position: absolute; top: 100%; left: 0; right: 0;
+                background: rgba(10, 22, 40, 0.98);
+                backdrop-filter: blur(24px); padding: 20px 24px; gap: 2px;
+            }
+            .nav-links.open a { padding: 14px 16px; display: block; }
+            .services-grid { grid-template-columns: 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .cta-box { padding: 60px 28px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            .gallery-strip-img { height: 180px; }
+            .partners-label { display: none; }
+            .contact-form { padding: 32px 24px; }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid { grid-template-columns: 1fr 1fr; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .gallery-strip-img { flex: 0 0 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <div class="logo-icon">SV</div>
+                <div class="logo-text">Steel Valley<small>Liquidators, LLC</small></div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#how">Process</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-cta"><a href="#contact" class="btn btn-primary">Get a Quote</a></div>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=80" alt="Warehouse interior" loading="eager">
+        </div>
+        <div class="hero-grain"></div>
+        <div class="hero-grid-pattern"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Trusted Source for <span>Wholesale Liquidation</span></h1>
+                <p>We connect overstock and return product suppliers with wholesale distributors, online sellers, and discount stores nationwide. One channel. Maximum value.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        Start a Partnership
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="#services" class="btn btn-secondary">Explore Services</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card-stack">
+                    <div class="hero-card-main">
+                        <div class="hero-card-glow"></div>
+                        <div class="card-header">
+                            <div class="card-dot"></div>
+                            <span>Live Inventory Dashboard</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Available Pallets</span>
+                            <span class="card-stat-value">2,400+</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Active Partners</span>
+                            <span class="card-stat-value">150+</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Product Categories</span>
+                            <span class="card-stat-value">12</span>
+                        </div>
+                        <div class="card-stat">
+                            <span class="card-stat-label">Avg. Savings</span>
+                            <span class="card-stat-value">70-90%</span>
+                        </div>
+                    </div>
+                    <div class="hero-floating top-right">
+                        <div class="float-icon blue">&#128230;</div>
+                        <div class="float-text">New Shipment<small>Ready to dispatch</small></div>
+                    </div>
+                    <div class="hero-floating bottom-left">
+                        <div class="float-icon orange">&#9733;</div>
+                        <div class="float-text">Verified Supplier<small>Direct contracts</small></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARTNERS MARQUEE -->
+    <section class="partners">
+        <div class="partners-inner">
+            <span class="partners-label">We Source From</span>
+            <div class="marquee-track">
+                <span>Walmart</span><span>Target</span><span>Amazon</span><span>Home Depot</span><span>Lowe's</span><span>Costco</span><span>Best Buy</span><span>Wayfair</span>
+                <span>Walmart</span><span>Target</span><span>Amazon</span><span>Home Depot</span><span>Lowe's</span><span>Costco</span><span>Best Buy</span><span>Wayfair</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-images anim">
+                <div class="about-img-main">
+                    <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80" alt="Warehouse operations with organized inventory">
+                </div>
+                <div class="about-img-float">
+                    <img src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=400&q=80" alt="Product shipping and logistics">
+                </div>
+                <div class="about-badge anim anim-d2">
+                    <div class="about-badge-number">10+</div>
+                    <div class="about-badge-text">Years in<br>Business</div>
+                </div>
+            </div>
+            <div class="about-content">
+                <div class="section-label anim">About Us</div>
+                <h2 class="section-title anim anim-d1">The Bridge Between<br>Supply &amp; Demand</h2>
+                <p class="section-subtitle anim anim-d2">Based in Boardman, Ohio, Steel Valley Liquidators works directly with contract holders of overstock and return product from America's largest retailers. We ship product directly to wholesale distributors, online sellers, pallet houses, and discount stores nationwide.</p>
+                <div class="values-grid anim anim-d3">
+                    <div class="value-item">
+                        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                        <div class="value-text"><h4>Direct Contracts</h4><p>Product sourced straight from contract holders</p></div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                        <div class="value-text"><h4>Trusted Partner</h4><p>Built on reliability and transparency</p></div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+                        <div class="value-text"><h4>One Channel</h4><p>Simplify your supply chain through us</p></div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                        <div class="value-text"><h4>Tailored Solutions</h4><p>Custom options for every buyer type</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS BAND -->
+    <section class="stats-band">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item anim">
+                    <div class="stat-number" data-count="2400">2,400+</div>
+                    <div class="stat-label">Pallets Available</div>
+                    <div class="stat-divider"></div>
+                </div>
+                <div class="stat-item anim anim-d1">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Active Partners</div>
+                    <div class="stat-divider"></div>
+                </div>
+                <div class="stat-item anim anim-d2">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Product Categories</div>
+                    <div class="stat-divider"></div>
+                </div>
+                <div class="stat-item anim anim-d3">
+                    <div class="stat-number">90%</div>
+                    <div class="stat-label">Below Retail</div>
+                    <div class="stat-divider"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="services-header">
+                <div class="section-label anim">What We Do</div>
+                <h2 class="section-title anim anim-d1">Our Core Services</h2>
+                <p class="section-subtitle anim anim-d2">We add value to every step of the liquidation chain, connecting the right products with the right buyers.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card anim">
+                    <div class="service-card-img">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80" alt="Warehouse shelves stocked with merchandise">
+                    </div>
+                    <div class="service-card-body">
+                        <div class="service-card-icon blue">&#128230;</div>
+                        <h3>Overstock Sourcing</h3>
+                        <p>We work directly with contract holders to source high-quality overstock and return merchandise from the nation's largest retailers at unbeatable prices.</p>
+                    </div>
+                </div>
+                <div class="service-card anim anim-d1">
+                    <div class="service-card-img">
+                        <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80" alt="Shipping truck and logistics">
+                    </div>
+                    <div class="service-card-body">
+                        <div class="service-card-icon orange">&#128666;</div>
+                        <h3>Direct Shipping</h3>
+                        <p>Product ships directly from our suppliers to your door. We handle the logistics so you can focus on growing your business and serving customers.</p>
+                    </div>
+                </div>
+                <div class="service-card anim anim-d2">
+                    <div class="service-card-img">
+                        <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=600&q=80" alt="Business handshake and partnership">
+                    </div>
+                    <div class="service-card-body">
+                        <div class="service-card-icon green">&#129309;</div>
+                        <h3>Supplier &amp; Buyer Matching</h3>
+                        <p>We help suppliers move inventory through one channel, and bring buyers multiple options tailored to their store type, clientele, and budget.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how" id="how">
+        <div class="container">
+            <div class="how-header">
+                <div class="section-label anim">Our Process</div>
+                <h2 class="section-title anim anim-d1">How It Works</h2>
+                <p class="section-subtitle anim anim-d2">Getting started with Steel Valley Liquidators is simple and straightforward.</p>
+            </div>
+            <div class="how-steps">
+                <div class="step anim">
+                    <div class="step-circle">
+                        <img src="https://images.unsplash.com/photo-1556745757-8d76bdb6984b?w=300&q=80" alt="Business consultation">
+                    </div>
+                    <div class="step-number-badge">1</div>
+                    <h3>Tell Us What You Need</h3>
+                    <p>Share your business type, product preferences, and volume needs. We'll learn about your store and customers.</p>
+                </div>
+                <div class="step anim anim-d2">
+                    <div class="step-circle">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=300&q=80" alt="Planning and matching">
+                    </div>
+                    <div class="step-number-badge">2</div>
+                    <h3>We Find the Best Match</h3>
+                    <p>We tap our network of direct supplier contracts to curate the best overstock options for your business.</p>
+                </div>
+                <div class="step anim anim-d4">
+                    <div class="step-circle">
+                        <img src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=300&q=80" alt="Product delivery and shipping">
+                    </div>
+                    <div class="step-number-badge">3</div>
+                    <h3>Product Ships to You</h3>
+                    <p>Once approved, we coordinate direct shipping from supplier to your location. Fast, efficient, and hassle-free.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY US -->
+    <section class="why">
+        <div class="container">
+            <div class="why-header">
+                <div class="section-label anim">Why Steel Valley</div>
+                <h2 class="section-title anim anim-d1">The Value We Bring</h2>
+                <p class="section-subtitle anim anim-d2">Whether you're a supplier looking to move product or a buyer searching for deals, we make the process simple.</p>
+            </div>
+            <div class="why-grid">
+                <div class="why-card anim">
+                    <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+                    <h3>For Suppliers</h3>
+                    <p>Move overstock and returns quickly through a single, reliable channel. No need to manage dozens of buyer relationships &mdash; we handle it all.</p>
+                </div>
+                <div class="why-card anim anim-d1">
+                    <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+                    <h3>For Online Sellers</h3>
+                    <p>Access deeply discounted brand-name inventory from top retailers. Perfect for Amazon, eBay, or Shopify sellers seeking competitive margins.</p>
+                </div>
+                <div class="why-card anim anim-d2">
+                    <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+                    <h3>For Discount Stores</h3>
+                    <p>Stock your shelves with brand-name products at a fraction of retail cost. We find the right mix for your customer base and location.</p>
+                </div>
+                <div class="why-card anim anim-d3">
+                    <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+                    <h3>For Pallet Houses</h3>
+                    <p>Consistent, high-quality pallets of overstock and returns across multiple categories. Scale your operation with a dependable partner.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="products-header">
+                <div class="section-label anim">Inventory</div>
+                <h2 class="section-title anim anim-d1">Product Categories</h2>
+                <p class="section-subtitle anim anim-d2">We source overstock and returns across a wide range of categories from top retailers.</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card anim">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&q=80" alt="Electronics and technology products">
+                    <div class="product-card-overlay"><h4>Electronics</h4><p>TVs, tablets, audio & more</p></div>
+                </div>
+                <div class="product-card anim anim-d1">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80" alt="Home and garden products">
+                    <div class="product-card-overlay"><h4>Home & Garden</h4><p>Furniture, decor, outdoor</p></div>
+                </div>
+                <div class="product-card anim anim-d2">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&q=80" alt="Apparel and clothing">
+                    <div class="product-card-overlay"><h4>Apparel</h4><p>Clothing, shoes, accessories</p></div>
+                </div>
+                <div class="product-card anim anim-d3">
+                    <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=400&q=80" alt="Tools and hardware">
+                    <div class="product-card-overlay"><h4>Tools & Hardware</h4><p>Power tools, hand tools, supplies</p></div>
+                </div>
+                <div class="product-card anim">
+                    <img src="https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400&q=80" alt="Toys and games">
+                    <div class="product-card-overlay"><h4>Toys & Games</h4><p>Kids toys, games, outdoor play</p></div>
+                </div>
+                <div class="product-card anim anim-d1">
+                    <img src="https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=400&q=80" alt="Kitchen appliances and cookware">
+                    <div class="product-card-overlay"><h4>Kitchen</h4><p>Appliances, cookware, gadgets</p></div>
+                </div>
+                <div class="product-card anim anim-d2">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&q=80" alt="Sporting goods and fitness">
+                    <div class="product-card-overlay"><h4>Sporting Goods</h4><p>Fitness, outdoor, recreation</p></div>
+                </div>
+                <div class="product-card anim anim-d3">
+                    <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&q=80" alt="Health and beauty products">
+                    <div class="product-card-overlay"><h4>Health & Beauty</h4><p>Personal care, wellness</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY STRIP -->
+    <section class="gallery-strip">
+        <div class="gallery-strip-inner">
+            <div class="gallery-strip-img"><img src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&q=80" alt="Warehouse aisle" loading="lazy"></div>
+            <div class="gallery-strip-img"><img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80" alt="Delivery logistics" loading="lazy"></div>
+            <div class="gallery-strip-img"><img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80" alt="Inventory stacked" loading="lazy"></div>
+            <div class="gallery-strip-img"><img src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=600&q=80" alt="Forklift operations" loading="lazy"></div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-box anim-scale">
+                <h2>Ready to Move Product<br>or Stock Up?</h2>
+                <p>Whether you're a supplier with inventory to move or a buyer looking for deals, let's talk.</p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-primary">Contact Us Today<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                    <a href="tel:+10000000000" class="btn btn-secondary">Call Us Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-info">
+                <div class="section-label anim">Get In Touch</div>
+                <h2 class="section-title anim anim-d1">Let's Work Together</h2>
+                <p class="section-subtitle anim anim-d2">Have questions about our inventory or interested in becoming a partner? Reach out and we'll get back to you within 24 hours.</p>
+
+                <h3 class="anim anim-d3">Contact Details</h3>
+
+                <div class="contact-detail anim anim-d3">
+                    <div class="contact-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                    <div class="contact-detail-text"><strong>Location</strong><span>Boardman, Ohio</span></div>
+                </div>
+                <div class="contact-detail anim anim-d3">
+                    <div class="contact-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+                    <div class="contact-detail-text"><strong>Phone</strong><span>(000) 000-0000</span></div>
+                </div>
+                <div class="contact-detail anim anim-d3">
+                    <div class="contact-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                    <div class="contact-detail-text"><strong>Email</strong><span>info@steelvalleyliquidators.com</span></div>
+                </div>
+                <div class="contact-detail anim anim-d3">
+                    <div class="contact-detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                    <div class="contact-detail-text"><strong>Mon - Fri: 8:00 AM - 6:00 PM</strong><span>Sat: 9:00 AM - 2:00 PM | Sun: Closed</span></div>
+                </div>
+
+                <div class="contact-map anim anim-d4">
+                    <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80" alt="Boardman Ohio area map placeholder">
+                    <div class="contact-map-overlay"></div>
+                </div>
+            </div>
+
+            <div class="contact-form anim anim-d2">
+                <h3>Send Us a Message</h3>
+                <p>Fill out the form below and we'll get back to you shortly.</p>
+                <!-- PLACEHOLDER: Connect to Formspree, Netlify Forms, EmailJS, etc. -->
+                <form id="contactForm" action="#" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000">
+                    </div>
+                    <div class="form-group">
+                        <label for="businessType">I am a...</label>
+                        <select id="businessType" name="businessType" required>
+                            <option value="" disabled selected>Select your business type</option>
+                            <option value="online-seller">Online Seller (Amazon, eBay, Shopify)</option>
+                            <option value="discount-store">Discount / Dollar Store</option>
+                            <option value="pallet-house">Pallet House / Warehouse</option>
+                            <option value="wholesale-distributor">Wholesale Distributor</option>
+                            <option value="flea-market">Flea Market Vendor</option>
+                            <option value="supplier">Supplier / Overstock Holder</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Tell us about your business and what you're looking for..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary form-submit">
+                        Send Message
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <div class="logo-icon">SV</div>
+                        <div class="logo-text">Steel Valley<small>Liquidators, LLC</small></div>
+                    </a>
+                    <p>Connecting overstock suppliers with wholesale buyers across the nation. Based in Boardman, Ohio &mdash; serving businesses nationwide.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#how">How It Works</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">Overstock Sourcing</a></li>
+                        <li><a href="#services">Direct Shipping</a></li>
+                        <li><a href="#services">Buyer Matching</a></li>
+                        <li><a href="#services">Pallet Sales</a></li>
+                        <li><a href="#services">Truckload Deals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="#">Boardman, Ohio</a></li>
+                        <li><a href="tel:+10000000000">(000) 000-0000</a></li>
+                        <li><a href="mailto:info@steelvalleyliquidators.com">info@steelvalley<br>liquidators.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Steel Valley Liquidators, LLC. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                    <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                    <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile nav
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            const spans = mobileToggle.querySelectorAll('span');
+            if (navLinks.classList.contains('open')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+            } else {
+                spans[0].style.transform = '';
+                spans[1].style.opacity = '';
+                spans[2].style.transform = '';
+            }
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                mobileToggle.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+            });
+        });
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('show');
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.anim, .anim-scale').forEach(el => observer.observe(el));
+
+        // Parallax on hero image
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero-bg img');
+            if (hero) {
+                const scrolled = window.scrollY;
+                hero.style.transform = `translateY(${scrolled * 0.3}px) scale(1.1)`;
+            }
+        });
+
+        // Form handler (placeholder)
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('.form-submit');
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Message Sent!';
+            btn.style.background = 'linear-gradient(135deg, #22c55e, #4ade80)';
+            btn.disabled = true;
+            setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; btn.disabled = false; this.reset(); }, 3000);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
