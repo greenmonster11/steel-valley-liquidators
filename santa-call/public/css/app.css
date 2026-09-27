@@ -211,6 +211,15 @@ body.helper-open .stage { right: 380px; }
 }
 .santa-frame svg { width: 100%; height: 100%; display: block; }
 
+/* Photoreal Santa, framed like a magic window into the workshop. */
+.santa-video {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -53%);
+  height: min(74vh, 900px); width: auto; max-width: calc(100% - 32px);
+  object-fit: cover; border-radius: 28px; background: #0e0806;
+  border: 10px solid #5b3421; outline: 3px solid var(--gold); outline-offset: -16px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+}
+
 .hud-top { position: absolute; top: 16px; left: 16px; right: 16px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
 .live-badge, .timer {
   display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px;

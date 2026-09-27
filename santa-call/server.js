@@ -6,13 +6,20 @@ import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { extname, join, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 import { timingSafeEqual } from 'node:crypto';
 import { WebSocketServer } from 'ws';
 import { GoogleGenAI } from '@google/genai';
 import { GeminiSantaSession } from './lib/gemini-session.js';
 import { MockSantaSession } from './lib/mock-session.js';
+import { createAnamSessionToken } from './lib/anam.js';
 
 const ROOT = fileURLToPath(new URL('.', import.meta.url));
+// The browser loads Anam's SDK from our own server, pinned by package-lock.
+const ANAM_SDK = join(
+  resolve(createRequire(import.meta.url).resolve('@anam-ai/js-sdk'), '../../..'),
+  'dist/umd/anam.js',
+);
 
 try {
   process.loadEnvFile(join(ROOT, '.env'));
@@ -30,6 +37,13 @@ export function resolveConfig(env = process.env) {
   if (!['vertex', 'gemini-api', 'mock'].includes(backend)) {
     throw new Error(`SANTA_BACKEND must be vertex, gemini-api, or mock (got "${backend}")`);
   }
+  const avatar = env.SANTA_AVATAR || (env.ANAM_API_KEY && env.ANAM_AVATAR_ID ? 'anam' : 'illustrated');
+  if (!['anam', 'illustrated'].includes(avatar)) {
+    throw new Error(`SANTA_AVATAR must be anam or illustrated (got "${avatar}")`);
+  }
+  if (avatar === 'anam' && !(env.ANAM_API_KEY && env.ANAM_AVATAR_ID)) {
+    throw new Error('SANTA_AVATAR=anam needs ANAM_API_KEY and ANAM_AVATAR_ID');
+  }
   return {
     port: Number(env.PORT) || 8787,
     host: env.HOST || '127.0.0.1',
@@ -43,6 +57,10 @@ export function resolveConfig(env = process.env) {
     maxCallMinutes: Number(env.MAX_CALL_MINUTES) || 30,
     textMode: env.SANTA_TEXT_INPUT === 'realtime' ? 'realtime' : 'client-content',
     allowedOrigins: (env.ALLOWED_ORIGINS || '').split(',').map((s) => s.trim()).filter(Boolean),
+    avatar,
+    anamApiKey: env.ANAM_API_KEY,
+    anamAvatarId: env.ANAM_AVATAR_ID,
+    anamAvatarModel: env.ANAM_AVATAR_MODEL || 'cara-4',
   };
 }
 
@@ -73,6 +91,16 @@ const STATIC_ROOTS = {
   '/': resolve(ROOT, 'public'),
 };
 
+async function sendFile(res, file) {
+  const body = await readFile(file);
+  res.writeHead(200, {
+    'Content-Type': MIME[extname(file)] || 'application/octet-stream',
+    'Cache-Control': 'no-cache',
+    'X-Content-Type-Options': 'nosniff',
+  });
+  res.end(body);
+}
+
 async function serveStatic(req, res) {
   let pathname;
   try {
@@ -93,13 +121,7 @@ async function serveStatic(req, res) {
   try {
     const info = await stat(file);
     if (!info.isFile()) throw new Error('not a file');
-    const body = await readFile(file);
-    res.writeHead(200, {
-      'Content-Type': MIME[extname(file)] || 'application/octet-stream',
-      'Cache-Control': 'no-cache',
-      'X-Content-Type-Options': 'nosniff',
-    });
-    res.end(body);
+    await sendFile(res, file);
   } catch {
     res.writeHead(404, { 'Content-Type': 'text/plain' }).end('Not found');
   }
@@ -122,19 +144,72 @@ function originAllowed(req, config) {
   }
 }
 
-export function createSantaServer(config = resolveConfig(), { log = console } = {}) {
+function sendJson(res, status, body) {
+  res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+  res.end(JSON.stringify(body));
+}
+
+async function readJson(req, limit = 4096) {
+  let size = 0;
+  const chunks = [];
+  for await (const chunk of req) {
+    size += chunk.length;
+    if (size > limit) throw new Error('body too large');
+    chunks.push(chunk);
+  }
+  return chunks.length ? JSON.parse(Buffer.concat(chunks).toString()) : {};
+}
+
+export function createSantaServer(config = resolveConfig(), { log = console, fetch: fetchImpl = globalThis.fetch } = {}) {
   const ai = createAi(config);
   const live = new Set();
 
+  // Hands the browser a one-call Anam token. Guarded like the call socket so
+  // strangers can't stream avatar minutes on your account.
+  async function avatarSession(req, res) {
+    if (!originAllowed(req, config)) return sendJson(res, 403, { error: 'Forbidden' });
+    if (config.avatar !== 'anam') return sendJson(res, 404, { error: 'Photoreal Santa is not enabled on this server.' });
+    let body;
+    try {
+      body = await readJson(req);
+    } catch {
+      return sendJson(res, 400, { error: 'Bad request' });
+    }
+    if (config.accessCode && !codesMatch(body.accessCode, config.accessCode)) {
+      return sendJson(res, 401, { error: 'That access code is not right.' });
+    }
+    try {
+      const sessionToken = await createAnamSessionToken({
+        apiKey: config.anamApiKey,
+        avatarId: config.anamAvatarId,
+        avatarModel: config.anamAvatarModel,
+        maxSeconds: config.maxCallMinutes * 60,
+        fetchImpl,
+      });
+      return sendJson(res, 200, { provider: 'anam', sessionToken });
+    } catch (err) {
+      log.error('[santa] avatar session failed:', err?.message ?? err);
+      return sendJson(res, 502, { error: "Couldn't start photoreal Santa." });
+    }
+  }
+
   const server = createServer(async (req, res) => {
-    if (req.method === 'GET' && req.url === '/api/config') {
-      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
-      res.end(JSON.stringify({
+    const path = req.url.split('?')[0];
+    if (req.method === 'GET' && path === '/api/config') {
+      return sendJson(res, 200, {
         backend: config.backend,
         model: config.backend === 'mock' ? null : config.model,
         needsAccessCode: Boolean(config.accessCode),
-      }));
-      return;
+        avatar: config.avatar,
+      });
+    }
+    if (req.method === 'POST' && path === '/api/avatar-session') return avatarSession(req, res);
+    if (req.method === 'GET' && path === '/vendor/anam.js') {
+      try {
+        return await sendFile(res, ANAM_SDK);
+      } catch {
+        return res.writeHead(404).end();
+      }
     }
     if (req.method !== 'GET' && req.method !== 'HEAD') {
       res.writeHead(405).end();
@@ -278,6 +353,7 @@ if (isMain) {
     } else {
       console.log(`   Backend: ${config.backend} · model: ${config.model}`);
     }
+    console.log(`   Santa: ${config.avatar === 'anam' ? `photoreal (Anam avatar ${config.anamAvatarId})` : 'illustrated'}`);
     if (config.backend === 'gemini-api') {
       console.warn('   ⚠  The Gemini Developer API terms do not allow apps used by people under 18.');
       console.warn('      Use this backend only for adult testing. Use SANTA_BACKEND=vertex for real calls with kids.');

@@ -1,5 +1,6 @@
 import { SantaAvatar } from '/js/santa-avatar.js';
 import { Microphone, VoicePlayer, createAudioContext } from '/js/audio.js';
+import { AnamSantaPlayer } from '/js/anam-santa.js';
 import { DEFAULT_PROFILE, loadProfile } from '/js/profile-store.js';
 
 const $ = (id) => document.getElementById(id);
@@ -25,6 +26,8 @@ let awaitingSanta = false;
 let callStartedAt = 0;
 const targetMinutes = Number(profile.callMinutes) || 10;
 let endReason = '';
+let avatarMode = 'illustrated';
+let lastLaugh = 0;
 let tickTimer = null;
 
 // ---------- Setup summary & helper panel ----------
@@ -179,14 +182,9 @@ async function startCall() {
 
   try {
     ctx = await createAudioContext();
-    player = new VoicePlayer(ctx);
-    player.onPlayingChange = (playing) => {
-      if (playing) awaitingSanta = false;
-      else gateUntil = performance.now() + 350; // let the room echo die down
-    };
-    avatar.attachVoice(player.analyser);
     mic = new Microphone(ctx);
     await mic.start(onMicChunk);
+    player = await createSantaPlayer(accessCode);
   } catch (err) {
     cleanup();
     showOverlay('ov-ready');
@@ -227,6 +225,64 @@ async function startCall() {
   };
 }
 
+function watchPlayback(p) {
+  p.onPlayingChange = (playing) => {
+    if (playing) awaitingSanta = false;
+    else gateUntil = performance.now() + 350; // let the room echo die down
+  };
+  return p;
+}
+
+function useIllustratedSanta() {
+  const p = watchPlayback(new VoicePlayer(ctx));
+  avatar.attachVoice(p.analyser);
+  $('santa').hidden = false;
+  $('santa-video').hidden = true;
+  return p;
+}
+
+function helperNote(text) {
+  const note = document.createElement('p');
+  note.className = 'line note';
+  note.textContent = text;
+  $('transcript').append(note);
+}
+
+/** Photoreal Santa when the server offers it, with the illustrated Santa as a safety net. */
+async function createSantaPlayer(accessCode) {
+  if (avatarMode !== 'anam') return useIllustratedSanta();
+  let anam = null;
+  try {
+    const res = await fetch('/api/avatar-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ accessCode }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+
+    const video = $('santa-video');
+    video.hidden = false;
+    anam = watchPlayback(new AnamSantaPlayer(ctx, video));
+    await anam.start(data.sessionToken);
+    $('santa').hidden = true;
+
+    // If the video drops mid-call, the illustrated Santa takes over his voice.
+    anam.onDisconnect = () => {
+      if (player !== anam) return;
+      anam.stop();
+      player = useIllustratedSanta();
+      helperNote('Photoreal Santa disconnected, so the illustrated Santa took over.');
+    };
+    return anam;
+  } catch (err) {
+    anam?.stop(); // don't leave a half-open avatar session running (and billing)
+    console.warn('[santa] photoreal Santa unavailable:', err);
+    helperNote(`Photoreal Santa couldn't connect (${err?.message ?? err}), so the illustrated Santa is filling in.`);
+    return useIllustratedSanta();
+  }
+}
+
 function onServerMessage(msg) {
   switch (msg.type) {
     case 'status':
@@ -238,7 +294,11 @@ function onServerMessage(msg) {
       if (msg.role === 'santa') {
         appendTranscript('santa', msg.text);
         showCaption(bubbles.santa.textContent);
-        if (/ho,?\s*ho/i.test(bubbles.santa.textContent.slice(-40))) avatar.laugh();
+        if (/ho,?\s*ho/i.test(bubbles.santa.textContent.slice(-40)) && performance.now() - lastLaugh > 2500) {
+          lastLaugh = performance.now();
+          avatar.laugh();
+          player?.cue?.('laughter');
+        }
       } else {
         appendTranscript('child', msg.text);
         awaitingSanta = true;
@@ -249,10 +309,12 @@ function onServerMessage(msg) {
       finishTurn();
       break;
     case 'turnComplete':
+      player?.endTurn?.();
       finishTurn();
       break;
     case 'alert':
       showAlert(msg);
+      player?.cue?.('supportive');
       break;
     case 'error':
       endReason = msg.message;
@@ -372,6 +434,7 @@ function cleanup() {
   clearInterval(tickTimer);
   mic?.stop();
   player?.clear();
+  player?.stop?.();
   ctx?.close().catch(() => {});
   mic = player = ctx = null;
   if (ws) {
@@ -384,6 +447,8 @@ function cleanup() {
   $('controls').hidden = true;
   $('timer').hidden = true;
   $('live-label').textContent = 'North Pole';
+  $('santa-video').hidden = true;
+  $('santa').hidden = false;
   avatar.setState('idle');
   finishTurn();
 }
@@ -435,6 +500,8 @@ fetch('/api/config')
       $('code-field').hidden = false;
       $('access-code').value = sessionStorage.getItem('callSanta.code') ?? '';
     }
+    avatarMode = cfg.avatar || 'illustrated';
+    if (avatarMode === 'anam') $('setup-summary').textContent += ' · photoreal Santa';
     if (cfg.backend === 'mock') $('ov-sub').textContent = 'Demo mode: no AI is connected, so Santa will hum his lines. Everything else works for real.';
   })
   .catch(() => {});
