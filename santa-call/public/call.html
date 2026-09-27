@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Call Santa · Live from the North Pole</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body class="call-page" data-state="idle">
+  <div class="stage">
+    <div class="scene" aria-hidden="true">
+      <div class="lights"></div>
+      <div class="window"><canvas id="snow"></canvas></div>
+      <div class="shelf"></div>
+      <div class="fireglow"></div>
+    </div>
+
+    <div class="santa-frame" id="santa" role="img" aria-label="Santa Claus"></div>
+
+    <div class="hud-top">
+      <div class="live-badge"><span class="dot"></span><span id="live-label">North Pole</span></div>
+      <div class="timer" id="timer" hidden>0:00</div>
+    </div>
+
+    <div class="caption" id="caption" aria-live="polite"></div>
+
+    <div class="listening" id="listening" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="controls" id="controls" hidden>
+      <button class="ctl" id="mute" title="Mute microphone (M)"><span class="ico">🎙️</span><span class="lbl">Mute</span></button>
+      <button class="ctl ptt" id="ptt" hidden title="Hold to talk (Space)"><span class="ico">✋</span><span class="lbl">Hold to talk</span></button>
+      <button class="ctl" id="toggle-cc" title="Captions (C)" aria-pressed="true"><span class="ico">💬</span><span class="lbl">Captions</span></button>
+      <button class="ctl" id="toggle-helper" title="Helper panel (H)"><span class="ico">🧝</span><span class="lbl">Helper</span><span class="badge" id="alert-badge" hidden></span></button>
+      <button class="ctl end" id="hangup" title="End call"><span class="ico">📞</span><span class="lbl">End</span></button>
+    </div>
+  </div>
+
+  <aside class="helper" id="helper" hidden aria-label="Grown-up helper panel">
+    <div class="helper-head">
+      <h2>Helper</h2>
+      <button class="icon-btn" id="close-helper" aria-label="Close helper">✕</button>
+    </div>
+    <p class="helper-sub">Only you see this. Kids see Santa. Press <kbd>H</kbd> to hide.</p>
+
+    <div id="alerts"></div>
+
+    <section>
+      <h3>Who's talking to Santa?</h3>
+      <div class="chips" id="kid-chips"></div>
+      <p class="muted small" id="no-kids" hidden>No names added. Santa will ask each child's name.</p>
+    </section>
+
+    <section>
+      <h3>Nudge Santa</h3>
+      <div class="nudges" id="nudges"></div>
+      <form id="custom-nudge" class="nudge-form">
+        <input id="nudge-text" maxlength="300" placeholder="Tell Santa something quietly…" aria-label="Custom note to Santa">
+        <button class="btn secondary small">Send</button>
+      </form>
+    </section>
+
+    <section class="transcript-wrap">
+      <h3>Transcript</h3>
+      <div class="transcript" id="transcript"></div>
+    </section>
+  </aside>
+
+  <div class="overlay" id="overlay">
+    <div class="overlay-card">
+      <div id="ov-ready">
+        <p class="eyebrow">Ready when you are</p>
+        <h1 id="ov-title">Call the North Pole</h1>
+        <p class="lede" id="ov-sub">Turn the volume up and make sure the kids can see the screen.</p>
+        <label class="field" id="code-field" hidden>
+          <span>Access code</span>
+          <input id="access-code" autocomplete="off">
+        </label>
+        <button class="btn primary huge" id="call">📞 Call Santa</button>
+        <p class="muted small"><a href="/">Change setup</a> · <span id="setup-summary"></span></p>
+      </div>
+      <div id="ov-connecting" hidden>
+        <div class="ringing" aria-hidden="true">🔔</div>
+        <h1>Calling the North Pole…</h1>
+        <p class="lede">The elves are connecting you to Santa's workshop.</p>
+      </div>
+      <div id="ov-ended" hidden>
+        <p class="eyebrow">Call ended</p>
+        <h1>Merry Christmas!</h1>
+        <p class="lede" id="ended-msg">Santa had a wonderful time.</p>
+        <button class="btn primary huge" id="again">Call again</button>
+        <p class="muted small"><a href="/">Back to setup</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/call.js"></script>
+</body>
+</html>

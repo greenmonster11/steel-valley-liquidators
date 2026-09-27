@@ -1,0 +1,20 @@
+{
+  "name": "call-santa",
+  "version": "0.1.0",
+  "description": "Live, real-time video calls with an AI Santa for classrooms and families.",
+  "private": true,
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.12"
+  },
+  "dependencies": {
+    "@google/genai": "^2.24.0",
+    "ws": "^8.22.0"
+  }
+}

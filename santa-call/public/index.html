@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Call Santa · Set up</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body class="setup-page">
+  <header class="setup-header">
+    <div class="wrap">
+      <p class="eyebrow">North Pole Video Line</p>
+      <h1>Call Santa</h1>
+      <p class="lede">Tell Santa a little about who he's talking to. He'll use it to make every child feel known.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="backend-note" class="note" hidden></div>
+
+    <form id="setup" autocomplete="off" novalidate>
+      <section class="card">
+        <h2><span class="step">1</span> Who's calling?</h2>
+        <div class="mode-picker" role="radiogroup" aria-label="Type of call">
+          <label class="mode-option">
+            <input type="radio" name="mode" value="classroom" checked>
+            <span class="mode-card">
+              <span class="mode-icon" aria-hidden="true">🏫</span>
+              <strong>A classroom</strong>
+              <small>Santa greets the class, then chats with kids one at a time.</small>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="mode" value="family">
+            <span class="mode-card">
+              <span class="mode-icon" aria-hidden="true">🏡</span>
+              <strong>A family</strong>
+              <small>A cozy one-on-one chat with your kids at home.</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2><span class="step">2</span> <span data-classroom>About the class</span><span data-family hidden>About the family</span></h2>
+        <div class="grid-2">
+          <label class="field">
+            <span data-classroom>Teacher's name (as kids say it)</span>
+            <span data-family hidden>Grown-up's name (as kids say it)</span>
+            <input name="hostName" maxlength="120" placeholder="Mrs. Alvarez">
+          </label>
+          <label class="field">
+            <span data-classroom>Class name</span>
+            <span data-family hidden>Family name</span>
+            <input name="groupName" maxlength="120" placeholder="Room 12, the Busy Bees">
+          </label>
+          <label class="field">
+            <span data-classroom>Grade</span>
+            <span data-family hidden>Kids' ages</span>
+            <input name="grade" maxlength="120" placeholder="1st grade">
+          </label>
+          <label class="field">
+            <span>Town (optional)</span>
+            <input name="location" maxlength="120" placeholder="Pittsburgh">
+          </label>
+        </div>
+        <label class="field">
+          <span data-classroom>What has the class been working on lately?</span>
+          <span data-family hidden>Family news Santa could mention</span>
+          <textarea name="recentNews" rows="3" maxlength="1500" placeholder="Learning about penguins and the Arctic, reading The Polar Express, practicing for the winter concert on Dec 12."></textarea>
+        </label>
+        <label class="field">
+          <span>Anything you'd love Santa to mention or encourage?</span>
+          <textarea name="mentions" rows="2" maxlength="1500" placeholder="Remind them to be kind on the playground. Congratulate them on 100 days of school!"></textarea>
+        </label>
+        <label class="field">
+          <span>Topics Santa should avoid (optional)</span>
+          <textarea name="avoid" rows="2" maxlength="1500" placeholder="Don't ask about pets. Don't mention elf-on-the-shelf."></textarea>
+        </label>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2><span class="step">3</span> The kids</h2>
+          <span class="count" id="child-count">0 kids</span>
+        </div>
+        <p class="hint">First names only. A fact or two per child is plenty: something they're proud of, love, or did recently. Santa will say the elves told him.</p>
+
+        <div id="children" class="children"></div>
+
+        <div class="row-actions">
+          <button type="button" class="btn ghost" id="add-child">+ Add a child</button>
+          <button type="button" class="btn ghost" id="toggle-paste">Paste a list</button>
+        </div>
+
+        <div id="paste-box" class="paste-box" hidden>
+          <label class="field">
+            <span>One child per line, like <code>Emma: lost her first tooth, loves dinosaurs</code></span>
+            <textarea id="paste-text" rows="6" placeholder="Emma: lost her first tooth, loves dinosaurs&#10;Liam - new baby sister, great at soccer&#10;Sofia"></textarea>
+          </label>
+          <button type="button" class="btn secondary" id="paste-add">Add these kids</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2><span class="step">4</span> Santa's settings</h2>
+        <div class="grid-2">
+          <label class="field">
+            <span>Santa's voice</span>
+            <select name="voice" id="voice"></select>
+          </label>
+          <label class="field">
+            <span>About how long should the call be?</span>
+            <select name="callMinutes">
+              <option value="5">5 minutes</option>
+              <option value="10" selected>10 minutes</option>
+              <option value="15">15 minutes</option>
+              <option value="20">20 minutes</option>
+              <option value="30">30 minutes</option>
+            </select>
+          </label>
+        </div>
+
+        <fieldset class="field">
+          <legend>If a child asks "Are you real?"</legend>
+          <label class="choice"><input type="radio" name="realness" value="magic" checked> <span><strong>Keep the magic.</strong> "I'm here through a little North Pole magic!"</span></label>
+          <label class="choice"><input type="radio" name="realness" value="honest"> <span><strong>Be gently honest.</strong> "I'm a computer Santa that grown-ups set up so you can chat with me!"</span></label>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>How do kids talk to Santa?</legend>
+          <label class="choice"><input type="radio" name="talkMode" value="handsfree" checked> <span><strong>Hands-free.</strong> Santa listens and replies when a child stops talking. Best for quiet rooms and one-on-one.</span></label>
+          <label class="choice"><input type="radio" name="talkMode" value="ptt"> <span><strong>Hold to talk.</strong> You hold the space bar (or the big button) while a child speaks. Best for noisy classrooms.</span></label>
+        </fieldset>
+
+        <label class="choice switch">
+          <input type="checkbox" name="allowInterrupt">
+          <span><strong>Let kids interrupt Santa.</strong> Feels more natural one-on-one with headphones. Leave off in a classroom so noise doesn't cut Santa off.</span>
+        </label>
+      </section>
+
+      <section class="card privacy">
+        <h2>Privacy</h2>
+        <ul>
+          <li>What you type here stays in this browser on this device.</li>
+          <li>During the call, these notes and the kids' voices go to Google's Gemini AI so Santa can talk. The server doesn't save them.</li>
+          <li>Stick to first names and friendly facts. Skip anything you wouldn't want shared.</li>
+        </ul>
+      </section>
+
+      <details class="card preview">
+        <summary>Show exactly what Santa will be told</summary>
+        <pre id="prompt-preview"></pre>
+      </details>
+
+      <div class="actions">
+        <div class="save-state" id="save-state" aria-live="polite">Saved on this device</div>
+        <div class="actions-right">
+          <button type="button" class="btn ghost small" id="example">Fill in an example</button>
+          <button type="button" class="btn ghost small" id="export">Download setup</button>
+          <label class="btn ghost small file-btn">Load setup<input type="file" id="import" accept="application/json,.json"></label>
+          <a class="btn primary big" href="/call.html" id="go">Start the call 🎄</a>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <template id="child-row">
+    <div class="child">
+      <input class="c-name" placeholder="First name" maxlength="40" aria-label="First name">
+      <input class="c-say" placeholder="Sounds like (optional)" maxlength="40" aria-label="Pronunciation">
+      <input class="c-age" placeholder="Age" maxlength="12" aria-label="Age">
+      <input class="c-facts" placeholder="Fun facts: loves dinosaurs, just learned to ride a bike" maxlength="300" aria-label="Fun facts">
+      <button type="button" class="c-remove" aria-label="Remove child">✕</button>
+    </div>
+  </template>
+
+  <script type="module" src="/js/setup.js"></script>
+</body>
+</html>
